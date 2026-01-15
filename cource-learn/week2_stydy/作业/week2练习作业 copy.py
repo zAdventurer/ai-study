@@ -164,16 +164,17 @@ def task1_data_processing():
     print(f'\n处理完异常值之后的数据：{df_processed}\n')
 
     # 3. 对类别型特征进行编码（使用LabelEncoder）
-    # 对 City 列进行编码
-    le_city = LabelEncoder()
-    df_processed['City_encoded'] = le_city.fit_transform(df_processed['City'])
-    print(f"\n城市编码映射：{dict(zip(le_city.classes_, le_city.transform(le_city.classes_)))}")
+    for col in categorical_cols:
+        le = LabelEncoder()
+        df_processed[col] = le.fit_transform(df_processed[col])
+        print(f"\n类别型特征编码完成：{col}")
+        print(f"\n类别型特征编码映射：{dict(zip(le.classes_, le.transform(le.classes_)))}")
 
     # 4. 对数值型特征进行标准化（使用StandardScaler）
-    scaler = StandardScaler()
-    df_processed[['Age', 'Salary', 'HousePrice']] = scaler.fit_transform(df_processed[['Age', 'Salary', 'HousePrice']])
-    print(f"\n数值特征标准化完成：['Age', 'Salary', 'HousePrice']")
-
+    for col in numeric_cols:
+        scaler = StandardScaler()
+        df_processed[col] = scaler.fit_transform(df_processed[col])
+        print(f"\n数值特征标准化完成：{col}")
 
     print("\n处理后的数据：")
     print(df_processed)
