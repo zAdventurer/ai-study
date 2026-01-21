@@ -96,12 +96,16 @@ def task1_data_processing():
     # 2. 处理异常值
     # 2.1 使用 IQR 方法检测异常值
     def detect_outliers_iqr(df, column):
-        Q1 = df[column].quantile(0.25)
-        Q3 = df[column].quantile(0.75)
-        IQR = Q3 - Q1
+        Q1 = df[column].quantile(0.25)  # 第1四分位数（25%位置）
+        Q3 = df[column].quantile(0.75)  # 第3四分位数（75%位置）
+        IQR = Q3 - Q1  # 四分位距
+
+        # 计算异常值边界（标准IQR规则：1.5倍IQR）
         lower_bound = Q1 - 1.5 * IQR
         upper_bound = Q3 + 1.5 * IQR
-        outliers = df[(df[column] > upper_bound) | df[column] < lower_bound]
+
+        # 找出所有超出边界的异常值
+        outliers = df[(df[column] < lower_bound) | (df[column] > upper_bound)]
         return outliers, lower_bound, upper_bound
 
     # 2.2 使用 z_score 方法检测异常值
