@@ -80,7 +80,7 @@ for i, word in enumerate(test_words):
     axes[i].bar(range(len(vector)), vector)
     axes[i].set_title(f"'{word}'")
     axes[i].set_ylim(0, 1.2)
-    
+
     # 标注对应位置
     for j, vocab_word in enumerate(vocabulary):
         if vector[j] == 1:
@@ -119,4 +119,4 @@ ideal_sim_cat_apple = cosine_similarity(ideal_cat, ideal_apple)
 print(f"\n假设我们有5维的理想词向量：")
 print(f"'猫' 和 '狗' 相似度：{ideal_sim_cat_dog:.3f}")
 print(f"'猫' 和 '苹果' 相似度：{ideal_sim_cat_apple:.3f}")
-print("✅ 这样就能体现语义关系了！") 
+print("✅ 这样就能体现语义关系了！")
